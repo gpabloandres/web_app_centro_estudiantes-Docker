@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if event else 'Nuevo' }} evento | Administración{% endblock %}
+{% block content %}
+<header class="page-heading"><span class="eyebrow">Administración · Eventos</span><h1>{{ 'Editar evento' if event else 'Nuevo evento' }}</h1></header>
+<form class="form-panel" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label for="title">Título</label><input id="title" name="title" maxlength="150" value="{{ event.title if event else '' }}" required><label for="event_date">Fecha</label><input id="event_date" name="event_date" type="date" value="{{ event.event_date if event else '' }}" required><label for="location">Lugar</label><input id="location" name="location" maxlength="100" value="{{ event.location if event else 'Colegio CTPAM' }}"><label for="description">Descripción <span class="label-optional">opcional</span></label><textarea id="description" name="description" rows="5" maxlength="20000">{{ event.description if event and event.description else '' }}</textarea><div class="form-actions"><a class="button button-quiet" href="{{ url_for('admin.events') }}">Cancelar</a><button class="button button-dark" type="submit">Guardar evento</button></div></form>
+{% endblock %}

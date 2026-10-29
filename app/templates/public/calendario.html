@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Calendario | Centro de Estudiantes{% endblock %}
+{% block content %}
+<header class="page-heading"><span class="eyebrow">Reserva la fecha</span><h1>Calendario</h1><p>Actividades y encuentros de la comunidad.</p></header>
+{% if events %}<ol class="calendar-list">{% for event in events %}<li class="calendar-item"><time class="calendar-date">{{ event.event_date }}</time><div><h2>{{ event.title }}</h2>{% if event.description %}<p>{{ event.description }}</p>{% endif %}<span class="location">{{ event.location }}</span></div></li>{% endfor %}</ol>{% else %}<p class="empty-state">Todavía no hay actividades en el calendario.</p>{% endif %}
+{% endblock %}

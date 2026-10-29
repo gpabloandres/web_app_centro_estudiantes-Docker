@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Panel | Centro de Estudiantes{% endblock %}
+{% block content %}
+<header class="admin-heading"><div><span class="eyebrow">Panel de control</span><h1>Contenido del sitio</h1></div><form method="post" action="{{ url_for('admin.logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="button button-quiet" type="submit">Cerrar sesión</button></form></header>
+<div class="admin-nav">{% for label, endpoint, count in [('Publicaciones','admin.posts',counts.posts),('Proyectos','admin.projects',counts.projects),('Eventos','admin.events',counts.events),('Mensajes','admin.feedback',counts.feedback)] %}<a href="{{ url_for(endpoint) }}">{{ label }} <span>{{ count }}</span></a>{% endfor %}</div>
+<section class="admin-welcome"><span class="eyebrow eyebrow-light">Hola, {{ g.user.username }}</span><h2>Una buena comunicación también se construye desde aquí.</h2><p>Elige una sección para actualizar la información que ve la comunidad.</p></section>
+{% endblock %}

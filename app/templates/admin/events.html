@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Eventos | Administración{% endblock %}
+{% block content %}
+<header class="admin-heading"><div><span class="eyebrow">Administración</span><h1>Eventos</h1></div><a class="button button-dark" href="{{ url_for('admin.event_create') }}">＋ Nuevo evento</a></header>
+<div class="table-wrap"><table><thead><tr><th>Evento</th><th>Fecha</th><th>Lugar</th><th>Acciones</th></tr></thead><tbody>{% for event in items %}<tr><td><strong>{{ event.title }}</strong><small class="table-subtext">{{ event.description|truncate(100) if event.description else '' }}</small></td><td>{{ event.event_date }}</td><td>{{ event.location }}</td><td class="row-actions"><a href="{{ url_for('admin.event_edit', event_id=event.id) }}">Editar</a><form method="post" action="{{ url_for('admin.event_delete', event_id=event.id) }}" onsubmit="return confirm('¿Eliminar este evento?')"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit" class="link-button">Eliminar</button></form></td></tr>{% else %}<tr><td colspan="4" class="table-empty">Aún no hay eventos.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

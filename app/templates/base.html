@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#12332f">
+	<title>{% block title %}Centro de Estudiantes | CTPAM{% endblock %}</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body>
+	<a class="skip-link" href="#contenido">Saltar al contenido</a>
+	<header class="site-header">
+		<div class="header-inner">
+			<a class="brand" href="{{ url_for('public.index') }}" aria-label="Centro de Estudiantes, inicio"{% if request.endpoint == 'public.index' %} aria-current="page"{% endif %}>
+				<span class="brand-mark" aria-hidden="true">27</span>
+				<span class="brand-copy"><strong>Centro de Estudiantes</strong><small>CTPAM · Lista 27</small></span>
+			</a>
+			<nav class="main-nav" aria-label="Navegación principal">
+				<a href="{{ url_for('public.quienes_somos') }}"{% if request.endpoint == 'public.quienes_somos' %} aria-current="page"{% endif %}>Quiénes somos</a>
+				<a href="{{ url_for('public.novedades') }}"{% if request.endpoint == 'public.novedades' %} aria-current="page"{% endif %}>Novedades</a>
+				<a href="{{ url_for('public.calendario') }}"{% if request.endpoint == 'public.calendario' %} aria-current="page"{% endif %}>Calendario</a>
+				<a href="{{ url_for('public.contacto') }}"{% if request.endpoint == 'public.contacto' %} aria-current="page"{% endif %}>Contacto</a>
+			</nav>
+			{% if g.user %}
+				<a class="header-action" href="{{ url_for('admin.dashboard') }}">Administración</a>
+			{% else %}
+				<a class="header-action" href="{{ url_for('admin.login') }}">Acceso admin</a>
+			{% endif %}
+		</div>
+	</header>
+	<main id="contenido" class="page-shell">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}<div class="flash-stack" role="status" aria-live="polite">
+				{% for category, message in messages %}<p class="flash flash-{{ category }}">{{ message }}</p>{% endfor %}
+			</div>{% endif %}
+		{% endwith %}
+		{% block content %}{% endblock %}
+	</main>
+	<footer class="site-footer">
+		<div class="footer-inner"><span>Centro de Estudiantes · CTPAM</span><span>Escuchar. Proponer. Hacer.</span></div>
+	</footer>
+</body>
+</html>

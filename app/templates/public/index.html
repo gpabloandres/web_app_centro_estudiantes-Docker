@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Inicio | Centro de Estudiantes{% endblock %}
+{% block content %}
+<section class="home-hero">
+  <img class="hero-photo" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=2000&q=85" alt="Estudiantes reunidos en el campus" fetchpriority="high">
+  <div class="hero-shade"></div>
+  <div class="hero-copy"><span class="eyebrow eyebrow-light">CTPAM · Lista 27</span><h1>Tu voz también construye el cole.</h1><p>Conoce las ideas, actividades y proyectos que mueven a nuestra comunidad.</p><div class="hero-actions"><a class="button button-lime" href="{{ url_for('public.novedades') }}">Ver novedades <span aria-hidden="true">↗</span></a><a class="button button-outline" href="{{ url_for('public.contacto') }}">Proponer una idea <span aria-hidden="true">↗</span></a></div></div>
+  <span class="hero-index" aria-hidden="true">27</span>
+</section>
+{% if priority_news %}<a class="priority-strip" href="{{ url_for('public.novedades') }}"><span class="priority-label">Destacado</span><strong>{{ priority_news.title }}</strong><span class="priority-arrow" aria-hidden="true">↗</span></a>{% endif %}
+<nav class="home-shortcuts" aria-label="Accesos rápidos"><a href="#novedades"><span aria-hidden="true">📣</span> Novedades</a><a href="#agenda"><span aria-hidden="true">📅</span> Próximas actividades</a><a href="#proyectos"><span aria-hidden="true">💡</span> Proyectos en marcha</a></nav>
+<section class="content-section" id="novedades">
+  <div class="section-heading"><div><span class="eyebrow">Al día</span><h2>Lo que está pasando</h2></div><a class="text-link" href="{{ url_for('public.novedades') }}">Todas las novedades <span aria-hidden="true">↗</span></a></div>
+  {% if recent_posts %}<div class="news-grid">
+    {% for post in recent_posts %}<article class="news-card{% if loop.first %} news-card-featured{% endif %}">
+      {% if post.image_url %}<img src="{{ post.image_url }}" alt="" loading="lazy">{% else %}<div class="news-art" aria-hidden="true"><span>{{ "%02d"|format(loop.index) }}</span></div>{% endif %}
+      <div class="news-body"><span class="eyebrow">{{ post.category }}</span><h3>{{ post.title }}</h3><p>{{ post.content|truncate(180) }}</p><time>{{ post.created_at.strftime('%d/%m/%Y') }}</time></div>
+    </article>{% endfor %}
+  </div>{% else %}<p class="empty-state">Pronto compartiremos novedades por aquí.</p>{% endif %}
+</section>
+<section class="content-section split-section">
+  <div id="agenda"><div class="section-heading"><div><span class="eyebrow">En agenda</span><h2>Próximos encuentros</h2></div></div>
+    {% if upcoming_events %}<ul class="event-list">{% for event in upcoming_events %}<li><span class="event-date">{{ event.event_date }}</span><span><strong>{{ event.title }}</strong><small>{{ event.location }}</small></span></li>{% endfor %}</ul>{% else %}<p class="empty-state">No hay actividades programadas todavía.</p>{% endif %}
+    <a class="text-link" href="{{ url_for('public.calendario') }}">Ver calendario <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="project-panel" id="proyectos"><span class="eyebrow eyebrow-light">En marcha</span><h2>Proyectos con propósito</h2>
+    {% if active_projects %}<ul class="project-list">{% for project in active_projects %}<li><span class="project-dot" aria-hidden="true"></span><span><strong>{{ project.title }}</strong><small>{{ project.status }} · {{ project.category }}</small></span></li>{% endfor %}</ul>{% else %}<p class="muted-light">Estamos preparando nuevas propuestas para la comunidad.</p>{% endif %}
+    <a class="button button-outline" href="{{ url_for('public.quienes_somos') }}">Ver proyectos</a>
+  </div>
+</section>
+{% endblock %}

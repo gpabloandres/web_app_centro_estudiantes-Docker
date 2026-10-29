@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Mensajes | Administración{% endblock %}
+{% block content %}
+<header class="admin-heading"><div><span class="eyebrow">Administración</span><h1>Mensajes recibidos</h1></div></header>
+<div class="feedback-list">{% for message in items %}<article class="feedback-item"><div class="feedback-meta"><span class="eyebrow">{{ message.type }}</span><time>{{ message.created_at.strftime('%d/%m/%Y %H:%M') }}</time></div><p>{{ message.message }}</p>{% if message.contact_info %}<a href="mailto:{{ message.contact_info }}">{{ message.contact_info }}</a>{% else %}<span class="label-optional">Sin datos de contacto</span>{% endif %}<form method="post" action="{{ url_for('admin.feedback_delete', feedback_id=message.id) }}" onsubmit="return confirm('¿Eliminar este mensaje?')"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit" class="link-button">Eliminar</button></form></article>{% else %}<p class="empty-state">Todavía no hay mensajes.</p>{% endfor %}</div>
+{% endblock %}

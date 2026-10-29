@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Contacto | Centro de Estudiantes{% endblock %}
+{% block content %}
+<header class="page-heading"><span class="eyebrow">Tu voz importa</span><h1>Hablemos.</h1><p>Comparte una consulta o una idea. Puedes dejar el mensaje de forma anónima.</p></header>
+<form class="form-panel contact-form" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label for="type">Tipo de mensaje</label><select id="type" name="type"><option>Sugerencia</option><option>Consulta</option></select>
+  <label for="message">Mensaje</label><textarea id="message" name="message" rows="7" maxlength="3000" required placeholder="¿Qué te gustaría compartir?"></textarea>
+  <label for="contact_info">Contacto <span class="label-optional">opcional</span></label><input id="contact_info" name="contact_info" maxlength="120" autocomplete="email" placeholder="Correo o medio para responderte">
+  <button class="button button-dark" type="submit">Enviar mensaje <span aria-hidden="true">↗</span></button>
+</form>
+{% endblock %}

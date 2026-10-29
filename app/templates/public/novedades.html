@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Novedades | Centro de Estudiantes{% endblock %}
+{% block content %}
+<header class="page-heading"><span class="eyebrow">Comunicados y recursos</span><h1>Novedades</h1><p>Información reciente del Centro de Estudiantes.</p></header>
+<form class="filter-bar" method="get"><label for="categoria">Categoría</label><select id="categoria" name="categoria"><option value="">Todas</option>{% for category in categories %}<option value="{{ category }}"{% if category_filter == category %} selected{% endif %}>{{ category }}</option>{% endfor %}</select><button class="button button-dark" type="submit">Filtrar</button></form>
+{% if posts.items %}<div class="news-grid news-grid-list">{% for post in posts.items %}<article class="news-card">{% if post.image_url %}<img src="{{ post.image_url }}" alt="" loading="lazy">{% else %}<div class="news-art" aria-hidden="true"><span>{{ "%02d"|format(loop.index) }}</span></div>{% endif %}<div class="news-body"><span class="eyebrow">{{ post.category }}{% if post.is_priority %} · Destacado{% endif %}</span><h2>{{ post.title }}</h2><p class="post-content">{{ post.content }}</p><time>{{ post.created_at.strftime('%d/%m/%Y') }}</time></div></article>{% endfor %}</div>
+<nav class="pagination" aria-label="Paginación">{% if posts.has_prev %}<a href="{{ url_for('public.novedades', pagina=posts.prev_num, categoria=category_filter) }}">← Anterior</a>{% else %}<span></span>{% endif %}<span aria-current="page">Página {{ posts.page }} de {{ posts.pages or 1 }}</span>{% if posts.has_next %}<a href="{{ url_for('public.novedades', pagina=posts.next_num, categoria=category_filter) }}">Siguiente →</a>{% else %}<span></span>{% endif %}</nav>
+{% else %}<p class="empty-state">No hay publicaciones para esta categoría.</p>{% endif %}
+{% endblock %}

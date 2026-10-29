@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Cartelera | Centro de Estudiantes{% endblock %}
+{% block content %}
+<header class="page-heading"><span class="eyebrow">CTPAM · Lista 27</span><h1>Cartelera estudiantil</h1><p>Información útil para encontrarnos y participar.</p></header>
+{% if priority_news %}<section class="screen-feature"><span class="eyebrow eyebrow-light">Avisos destacados</span>{% for post in priority_news %}<article><h2>{{ post.title }}</h2><p>{{ post.content|truncate(240) }}</p></article>{% endfor %}</section>{% endif %}
+<section class="content-section split-section"><div><span class="eyebrow">Últimas publicaciones</span>{% for post in recent_posts %}<article class="screen-row"><span>{{ post.category }}</span><h2>{{ post.title }}</h2></article>{% else %}<p class="empty-state">Sin publicaciones recientes.</p>{% endfor %}</div><div><span class="eyebrow">Próximos eventos</span>{% for event in events %}<article class="screen-row"><span>{{ event.event_date }} · {{ event.location }}</span><h2>{{ event.title }}</h2></article>{% else %}<p class="empty-state">Sin eventos programados.</p>{% endfor %}</div></section>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Proyectos | Administración{% endblock %}
+{% block content %}
+<header class="admin-heading"><div><span class="eyebrow">Administración</span><h1>Proyectos</h1></div><a class="button button-dark" href="{{ url_for('admin.project_create') }}">＋ Nuevo proyecto</a></header>
+<div class="table-wrap"><table><thead><tr><th>Proyecto</th><th>Estado</th><th>Categoría</th><th>Acciones</th></tr></thead><tbody>{% for project in items %}<tr><td><strong>{{ project.title }}</strong><small class="table-subtext">{{ project.description|truncate(100) }}</small></td><td>{{ project.status }}</td><td>{{ project.category }}</td><td class="row-actions"><a href="{{ url_for('admin.project_edit', project_id=project.id) }}">Editar</a><form method="post" action="{{ url_for('admin.project_delete', project_id=project.id) }}" onsubmit="return confirm('¿Eliminar este proyecto?')"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit" class="link-button">Eliminar</button></form></td></tr>{% else %}<tr><td colspan="4" class="table-empty">Aún no hay proyectos.</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

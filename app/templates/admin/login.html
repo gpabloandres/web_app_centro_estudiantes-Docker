@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Administración | Centro de Estudiantes{% endblock %}
+{% block content %}
+<header class="page-heading"><span class="eyebrow">Espacio privado</span><h1>Administración</h1><p>Ingresa con tu cuenta para gestionar el contenido.</p></header>
+<form class="form-panel login-form" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label for="username">Usuario</label><input id="username" name="username" autocomplete="username" required maxlength="80"><label for="password">Contraseña</label><input id="password" name="password" type="password" autocomplete="current-password" required><button class="button button-dark" type="submit">Iniciar sesión</button></form>
+{% endblock %}

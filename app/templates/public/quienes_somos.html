@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Quiénes somos | Centro de Estudiantes{% endblock %}
+{% block content %}
+<header class="page-heading"><span class="eyebrow">La lista 27</span><h1>Representar también es escuchar.</h1><p>Trabajamos junto a la comunidad estudiantil para convertir buenas ideas en acciones concretas.</p></header>
+<section class="content-section"><div class="section-heading"><div><span class="eyebrow">Trabajo colectivo</span><h2>Proyectos</h2></div></div>
+{% if projects %}<div class="project-grid">{% for project in projects %}<article class="project-card"><div class="project-card-top"><span class="status-dot" aria-hidden="true"></span><span>{{ project.status }}</span></div><h3>{{ project.title }}</h3><p>{{ project.description }}</p><span class="project-category">{{ project.category }}</span></article>{% endfor %}</div>{% else %}<p class="empty-state">Estamos dando forma a las próximas propuestas.</p>{% endif %}</section>
+{% endblock %}
