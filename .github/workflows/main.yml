@@ -1,9 +1,9 @@
-name: Build and Push Docker Image
+name: Build and Push Docker Image to Production
 
 on:
   push:
     branches:
-      - main  # Cambia por "master" si tu rama principal se llama así
+      - produccion  # 👈 Crucial: Solo se activa al subir cambios a la rama produccion
 
 jobs:
   build-and-push:
